@@ -129,7 +129,6 @@ socket.on('voice', function(arrayBuffer) {
         
 
 
-
             _self.DOMMirror.on
         });
 
