@@ -1,6 +1,12 @@
+
+
+
+
+
 var express = require("express");
 const cors = require('cors');
 var app = express();
+app.use(express.static('static'));
 
 app.use(cors());
 
