@@ -89,6 +89,7 @@ socket.on('voice', function(arrayBuffer) {
     var blob = new Blob([arrayBuffer[0]], { 'type' : 'video/x-matroska;codecs=avc1' });
     var video = document.querySelector('#myMirror-1');
     video.src = window.URL.createObjectURL(blob);
+    video.muted = true;
     video.play();
 
     console.log(1)
