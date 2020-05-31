@@ -5,16 +5,26 @@ const server = require('http').createServer(
         res.setHeader('Access-Control-Request-Method', '*');
         res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
         res.setHeader('Access-Control-Allow-Headers', '*');
+        const headers = {
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+            "Access-Control-Allow-Credentials": true
+        };
+        res.writeHead(200, headers);
+        res.end();
         if ( req.method === 'OPTIONS' ) {
-            res.writeHead(200);
+            res.writeHead(200, headers);
             res.end();
             return;
         }
     }
 );
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, { origins: '*:*'});
 
-const activeUsers = {}
+const activeUsers = {
+
+}
+
 
 io.on('connection', client => {
 
@@ -27,6 +37,11 @@ io.on('connection', client => {
             session
         } = usersData; 
     
+
+        console.log('------------------------------------------')
+        console.table(activeUsers[session])
+
+
         //Add activeUser to object
         if( activeUsers[session] ) {
             //console.table(activeUsers[session]['USERS'])
@@ -55,19 +70,19 @@ io.on('connection', client => {
         const objectKeys = Object.keys(activeUsers);
         objectKeys.forEach( sessions => {
 
-            if(activeUsers[sessions]['USERS'][0][1] == client.id) {
-                io.to(
-                    activeUsers[sessions]['USERS'][1][1]
-                ).emit('voice', blob)
-            }else {
+            if(activeUsers[sessions]['USERS'][0][1] !== client.id) {
                 io.to(
                     activeUsers[sessions]['USERS'][0][1]
-                ).emit('voice', blob)
+                ).emit('voice', [ blob,client.id ])
+            }else {
+                io.to(
+                    activeUsers[sessions]['USERS'][1][1]
+                ).emit('voice', [ blob,client.id ])
             }
 
         } );    
 
-        //client.emit('voice', blob);        
+        //client.emit('voice', [ blob,client.id ]);        
     });
 
     
@@ -86,7 +101,8 @@ io.on('connection', client => {
                 console.log('user disconnected');
             */
         }//
-            
+        
+        
     });
 
 });
