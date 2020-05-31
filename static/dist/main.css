@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+}
+body * {
+  color: rgba(192, 192, 192, 0.596);
+}
+body main {
+  background-color: #0f0f0f;
+  min-height: 100vh;
+}
+
+.video-mirrors {
+  padding: 8rem 0 2rem 0;
+}
+.video-mirrors .my-mirror {
+  border-radius: 4px;
+  padding: 0;
+}
+
+/*# sourceMappingURL=main.css.map */
