@@ -57,6 +57,7 @@ class Camera {
 
             _self.DOMMirror.srcObject = stream;
             _self.DOMMirror.muted = true;
+            _self.DOMMirror.setAttribute('muted', true);
             
             const socket = io.connect( '/', {transports: ['websocket']} );
 
@@ -125,10 +126,7 @@ socket.on('voice', function(arrayBuffer) {
 
             //Emit the user ID
 
-        
 
-
-            _self.DOMMirror.on
         });
 
     }
