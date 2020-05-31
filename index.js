@@ -5,6 +5,10 @@ app.use(express.static('static'));
 
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.sendFile('static/index.html')
+})
+
 var server = app.listen(5000,'0.0.0.0',function(){
     console.log("App server up and running on %s and port %s",server.address().address ,server.address().port);
 });
