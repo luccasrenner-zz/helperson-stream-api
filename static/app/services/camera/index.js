@@ -8,8 +8,14 @@ class Camera {
         this.constraints = {
             audio: true,
             video: {
-                facingMode: this.facingMode
-            }
+                facingMode: this.facingMode,
+                //width: { min: 10, ideal: 10, max: 10 },
+                //height: { min: 10, ideal: 10, max: 10 }
+                width: { max: 100 },
+                height: { max: 100 },
+                frameRate: { max: 14 },
+            },
+            
         };
 
         _self = this;
@@ -42,8 +48,6 @@ class Camera {
         const chat_session = this.site_session();
 
         navigator.mediaDevices.getUserMedia(this.constraints).then(function success(stream) {
-        //emit to especific socket id
-        //io.to(socketid).emit('message', 'for your eyes only');
 
             const userData = {
                 userId : myUser,
@@ -51,14 +55,10 @@ class Camera {
                 session: chat_session
             }
 
-
             _self.DOMMirror.srcObject = stream;
             
-            const socket = io.connect(  );
+            const socket = io.connect( '/', {transports: ['websocket']} );
 
-
-
-            setInterval(function() {
 
                 var mediaRecorder = new MediaRecorder(stream);
                 mediaRecorder.onstart = function(e) { 
@@ -74,11 +74,12 @@ class Camera {
                 mediaRecorder.start();
 
                 // Stop recording after 5 seconds and broadcast it to server
-                setTimeout(function() {
+                setInterval(function() {
                     mediaRecorder.stop()
-                }, 2000);
+                    mediaRecorder.start()
+                }, 6000);
 
-            }, 2000);
+
 
 
 //------------------------------------------------------------------------
