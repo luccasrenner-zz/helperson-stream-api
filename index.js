@@ -10,7 +10,7 @@ app.use(express.static('static'));
 
 app.use(cors());
 
-var server = app.listen(3333,'0.0.0.0',function(){
+var server = app.listen(5000,'0.0.0.0',function(){
     console.log("App server up and running on %s and port %s",server.address().address ,server.address().port);
 });
 
