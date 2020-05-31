@@ -1,8 +1,45 @@
 .video-mirrors {
-    padding: 8rem 0 2rem 0;
+    padding: 0rem 0 0rem 0;
+    position: relative;
 
-    .my-mirror {
+    .video-container--first {
+        &:hover {
+            .btn {
+                top: 83%;
+                opacity: 1;
+            }
+        }
+        .btn {
+            position: fixed;
+            top: 85%;
+            left: 0;
+            right: 0;
+            margin: auto;
+            display: block;            
+            width: 40px;
+            height: 40px;
+            background: url('https://wsd.casio.com/assets_v2/img/ico/ico_google_phone.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 100%;
+            transition: 0.5s all;
+            opacity: 0;
+        }
+    }
+
+    .video-container--side-bar {
         border-radius: 4px;
+        display: flex;
+        flex-direction: row;
         padding: 0;
+        height: 100vh;
+        max-height: 100vh;
+        
+
+        video {
+            width: 100%;
+            height: 150px;
+            margin: 10px 30px 10px 10px;
+        }
     }
 }
