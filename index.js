@@ -1,24 +1,14 @@
-const server = require('http').createServer(
-    function(req,res){
-        // Set CORS headers
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Request-Method', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
-        res.setHeader('Access-Control-Allow-Headers', '*');
-        const headers = {
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
-            "Access-Control-Allow-Credentials": true
-        };
-        res.writeHead(200, headers);
-        res.end();
-        if ( req.method === 'OPTIONS' ) {
-            res.writeHead(200, headers);
-            res.end();
-            return;
-        }
-    }
-);
+var express = require("express");
+const cors = require('cors');
+var app = express();
+
+app.use(cors());
+
+var server = app.listen(8768,'0.0.0.0',function(){
+    console.log("App server up and running on %s and port %s",server.address().address ,server.address().port);
+});
+
+
 const io = require('socket.io')(server, { origins: '*:*'});
 
 const activeUsers = {
@@ -106,7 +96,3 @@ io.on('connection', client => {
     });
 
 });
-
-server.listen(8768, () => {
-    console.log('SERVER');
-} );
