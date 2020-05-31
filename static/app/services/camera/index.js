@@ -6,7 +6,7 @@ class Camera {
         this.DOMMirror = document.querySelector( DOMMirror );
         this.facingMode = "user"; // Can be 'user' or 'environment' to access back or front camera (NEAT!)
         this.constraints = {
-            audio: false,
+            audio: true,
             video: {
                 facingMode: this.facingMode
             }
